@@ -128,3 +128,15 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+.idea/
+.vscode/
+build/
+temp/
+.env
+coverage
+ormconfig.json
+dist
+
+uploads/*
+!uploads/.gitkeep
