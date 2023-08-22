@@ -4,9 +4,7 @@ import OrganizationController from '../controllers/OrganizationController';
 const organizationRoutes = Router();
 const organizationController = new OrganizationController();
 
-// organizationRoutes.get('/', (request: Request, response: Response) => {
-//   return request.json({ message: 'message' });
-// });
+organizationRoutes.get('/', organizationController.index);
 
 organizationRoutes.post('/', organizationController.create);
 
