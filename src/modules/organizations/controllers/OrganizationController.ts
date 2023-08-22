@@ -2,14 +2,18 @@ import { Request, Response } from 'express';
 import Organization from '../typeorm/entities/Organization';
 import CreateOrganizationService from '../services/CreateOrganizationService';
 import AppErrors from '@shared/errors/AppError';
+import ListOrganizationService from '../services/ListOrganizationService';
 
 class OrganizationController {
-  // public async index(request: Request, response: Response): Response<Organization>{
-  //   const organization =
-  //   return request.json()
-  // }
+  public async index(request: Request, response: Response): Promise<Response> {
+    const listOrganizations = new ListOrganizationService();
 
-  public async create(request: Request, response: Response) {
+    const organization = await listOrganizations.execute();
+
+    return response.json(organization);
+  }
+
+  public async create(request: Request, response: Response): Promise<Response> {
     const { name } = request.body;
     const createOrganization = new CreateOrganizationService();
 
