@@ -1,9 +1,8 @@
+import organizationRoutes from '@modules/organizations/routes/organization.routes';
 import { Router } from 'express';
 
 const routes = Router();
 
-routes.get('/', (request, response) => {
-  return response.json({ message: 'foi' });
-});
+routes.use('/organization', organizationRoutes);
 
 export default routes;
