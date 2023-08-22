@@ -1,5 +1,6 @@
 import 'reflect-metadata';
 import 'module-alias/register';
+import 'express-async-errors';
 import express, { NextFunction, Request, Response } from 'express';
 import cors from 'cors';
 import routes from './routes';
@@ -15,6 +16,7 @@ app.use(routes);
 
 app.use(
   (error: Error, request: Request, response: Response, next: NextFunction) => {
+    console.log(error);
     if (error instanceof AppErrors) {
       return response.status(error.statusCode).json({
         status: 'error',
