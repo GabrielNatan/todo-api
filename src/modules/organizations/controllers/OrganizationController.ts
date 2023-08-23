@@ -1,8 +1,9 @@
 import { Request, Response } from 'express';
-import Organization from '../typeorm/entities/Organization';
 import CreateOrganizationService from '../services/CreateOrganizationService';
-import AppErrors from '@shared/errors/AppError';
 import ListOrganizationService from '../services/ListOrganizationService';
+import ShowOrganizationService from '../services/ShowOrganizationService';
+import UpdateOrganizationService from '../services/UpdateOrganizationService';
+import DeleteOrganizationService from '../services/DeleteOrganizationService';
 
 class OrganizationController {
   public async index(request: Request, response: Response): Promise<Response> {
@@ -22,6 +23,36 @@ class OrganizationController {
     });
 
     return response.json(organization);
+  }
+
+  public async show(request: Request, response: Response): Promise<Response> {
+    const { id } = request.params;
+
+    const showOrganization = new ShowOrganizationService();
+
+    const organization = await showOrganization.execute({ id });
+
+    return response.json(organization);
+  }
+
+  public async update(request: Request, response: Response): Promise<Response> {
+    const { id } = request.params;
+    const { name } = request.body;
+
+    const updateOrganization = new UpdateOrganizationService();
+
+    const organization = await updateOrganization.execute({ id, name });
+
+    return response.json(organization);
+  }
+
+  public async delete(request: Request, response: Response) {
+    const { id } = request.params;
+    const deleteOrganizationService = new DeleteOrganizationService();
+
+    await deleteOrganizationService.execute({ id });
+
+    return response.json({});
   }
 }
 
