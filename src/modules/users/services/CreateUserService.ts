@@ -10,6 +10,7 @@ interface IRequest {
   first_name: string;
   email: string;
   organization_id: string;
+  password: string;
 }
 
 class CreateUserService {
@@ -19,6 +20,7 @@ class CreateUserService {
     full_name,
     last_name,
     organization_id,
+    password,
   }: IRequest): Promise<User> {
     const userRepository = getCustomRepository(UserRepository);
     const organizationRepository = getCustomRepository(OrganizationRepository);
@@ -34,7 +36,8 @@ class CreateUserService {
       first_name,
       full_name,
       last_name,
-      organization_id: organization,
+      organization,
+      password,
     });
 
     await userRepository.save(user);
