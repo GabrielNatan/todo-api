@@ -4,7 +4,7 @@ import AppErrors from '@shared/errors/AppError';
 import User from '../typeorm/entities/User';
 
 class ShowUserService {
-  public async execte(id: string): Promise<User> {
+  public async execute(id: string): Promise<User> {
     const userRepository = getCustomRepository(UserRepository);
 
     const user = await userRepository.findById(id);
