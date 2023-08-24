@@ -3,8 +3,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
-  OneToOne,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -26,9 +25,11 @@ class User {
   @Column('varchar')
   email: string;
 
-  @OneToOne(type => Organization)
-  @JoinColumn()
-  organization_id: Organization;
+  @Column('varchar')
+  password: string;
+
+  @ManyToOne(type => Organization, user => User)
+  organization: Organization;
 
   @CreateDateColumn()
   created_at: Date;
