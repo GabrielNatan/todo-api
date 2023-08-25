@@ -23,7 +23,7 @@ class Task {
 
   @ManyToMany(type => User)
   @JoinTable()
-  users: User;
+  users: User[];
 
   @CreateDateColumn()
   created_at: string;
