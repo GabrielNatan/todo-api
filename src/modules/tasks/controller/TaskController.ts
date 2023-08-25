@@ -4,6 +4,7 @@ import CreateTaskService from '../services/CreateTaskService';
 import UpdateTaskService from '../services/UpdateTaskService';
 import DeleteTaskService from '../services/DeleteTaskService';
 import ShowTaskService from '../services/ShowTaskService';
+import UpdateUserTaskService from '../services/UpdateUserTaskService';
 
 class TaskController {
   public async index(request: Request, response: Response): Promise<Response> {
@@ -49,6 +50,20 @@ class TaskController {
       message,
       title,
     });
+
+    return response.json(task);
+  }
+
+  public async updateUserTask(
+    request: Request,
+    response: Response,
+  ): Promise<Response> {
+    const { id } = request.params;
+    const { users } = request.body;
+
+    const updateUserTaskService = new UpdateUserTaskService();
+
+    const task = await updateUserTaskService.execute({ id, users });
 
     return response.json(task);
   }
