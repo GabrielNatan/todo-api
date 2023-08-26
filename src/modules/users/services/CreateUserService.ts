@@ -3,6 +3,7 @@ import User from '../typeorm/entities/User';
 import UserRepository from '../typeorm/repositories/UserRepository';
 import OrganizationRepository from '@modules/organizations/typeorm/repositories/OrganizationRepository';
 import AppErrors from '@shared/errors/AppError';
+import { hash } from 'bcrypt';
 
 interface IRequest {
   full_name: string;
@@ -31,13 +32,14 @@ class CreateUserService {
       throw new AppErrors('Organization not found.', 404);
     }
 
+    const hashPassword = await hash(password, 8);
     const user = userRepository.create({
       email,
       first_name,
       full_name,
       last_name,
       organization,
-      password,
+      password: hashPassword,
     });
 
     await userRepository.save(user);
