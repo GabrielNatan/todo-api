@@ -2,6 +2,7 @@ import { getCustomRepository } from 'typeorm';
 import UserRepository from '../typeorm/repositories/UserRepository';
 import AppErrors from '@shared/errors/AppError';
 import User from '../typeorm/entities/User';
+import { instanceToInstance } from 'class-transformer';
 
 class ShowUserService {
   public async execute(id: string): Promise<User> {
@@ -13,7 +14,7 @@ class ShowUserService {
       throw new AppErrors('User not found.', 404);
     }
 
-    return user;
+    return instanceToInstance(user);
   }
 }
 

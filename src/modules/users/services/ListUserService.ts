@@ -1,6 +1,7 @@
 import { getCustomRepository } from 'typeorm';
 import User from '../typeorm/entities/User';
 import UserRepository from '../typeorm/repositories/UserRepository';
+import { instanceToInstance } from 'class-transformer';
 
 class ListUserService {
   public async execute(): Promise<User[]> {
@@ -8,7 +9,7 @@ class ListUserService {
 
     const users = await userRepository.find();
 
-    return users;
+    return instanceToInstance(users);
   }
 }
 
