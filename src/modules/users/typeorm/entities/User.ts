@@ -1,4 +1,5 @@
 import Organization from '@modules/organizations/typeorm/entities/Organization';
+import { Exclude } from 'class-transformer';
 import {
   Column,
   CreateDateColumn,
@@ -26,6 +27,7 @@ class User {
   email: string;
 
   @Column('varchar')
+  @Exclude()
   password: string;
 
   @ManyToOne(type => Organization, user => User)
