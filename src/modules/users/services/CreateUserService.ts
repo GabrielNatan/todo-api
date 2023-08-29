@@ -4,6 +4,7 @@ import UserRepository from '../typeorm/repositories/UserRepository';
 import OrganizationRepository from '@modules/organizations/typeorm/repositories/OrganizationRepository';
 import AppErrors from '@shared/errors/AppError';
 import { hash } from 'bcrypt';
+import { instanceToInstance } from 'class-transformer';
 
 interface IRequest {
   full_name: string;
@@ -44,7 +45,7 @@ class CreateUserService {
 
     await userRepository.save(user);
 
-    return user;
+    return instanceToInstance(user);
   }
 }
 

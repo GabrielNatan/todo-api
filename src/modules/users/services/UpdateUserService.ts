@@ -3,6 +3,7 @@ import User from '../typeorm/entities/User';
 import UserRepository from '../typeorm/repositories/UserRepository';
 import AppErrors from '@shared/errors/AppError';
 import { hash } from 'bcrypt';
+import { instanceToInstance } from 'class-transformer';
 
 interface IRequest {
   id: string;
@@ -28,15 +29,15 @@ class UpdateUserService {
     }
 
     const hashPassword = await hash(password, 8);
-
-    user.email = email;
     user.first_name = first_name;
     user.last_name = last_name;
+    user.full_name = `${first_name} ${last_name}`;
+    user.email = email;
     user.password = hashPassword;
 
     await userRepository.save(user);
 
-    return user;
+    return instanceToInstance(user);
   }
 }
 
