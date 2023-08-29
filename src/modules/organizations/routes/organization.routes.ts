@@ -11,7 +11,7 @@ organizationRoutes.get(
   '/:id',
   celebrate({
     [Segments.PARAMS]: Joi.object().keys({
-      id: Joi.string().required(),
+      id: Joi.string().uuid().required(),
     }),
   }),
   organizationController.show,
@@ -33,10 +33,21 @@ organizationRoutes.put(
     [Segments.PARAMS]: {
       id: Joi.string().required(),
     },
+    [Segments.BODY]: {
+      name: Joi.string().required(),
+    },
   }),
   organizationController.update,
 );
 
-organizationRoutes.delete('/:id', organizationController.delete);
+organizationRoutes.delete(
+  '/:id',
+  celebrate({
+    [Segments.PARAMS]: {
+      id: Joi.string().uuid().required(),
+    },
+  }),
+  organizationController.delete,
+);
 
 export default organizationRoutes;
